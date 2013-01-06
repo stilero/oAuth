@@ -18,6 +18,7 @@ class Server{
     
     private $nonce;
     private $timestamp;
+    private $signature;
     static $version  = '1.0';
     static $signMethod = 'HMAC-SHA1';
     
@@ -31,4 +32,17 @@ class Server{
         }
         $this->_config = $defaultConfig;
     }
+    
+    protected function createNonce($length=12, $include_time=true){
+        $characters = array_merge(range(0,9), range('A','Z'), range('a','z'));
+        $length = $length > count($characters) ? count($characters) : $length;
+        shuffle($characters);
+        $prefix = $include_time ? microtime() : '';
+        $this->nonce = md5(substr($prefix . implode('', $characters), 0, $length));
+    }
+    
+    protected function createTimestamp(){
+        $this->timestamp = time();
+    }
+    
 }
