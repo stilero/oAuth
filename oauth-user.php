@@ -14,13 +14,12 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access'); 
 
-class Client{
+class OauthUser{
     
-    public $key;
-    public $secret;
+    public $accessToken;
+    public $tokenSecret;
     
-    public function __construct($key, $secret) {
-        $this->key = $key;
-        $this->secret = $secret;
+    public function __construct() {
+        
     }
 }
